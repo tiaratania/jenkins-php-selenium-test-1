@@ -47,8 +47,7 @@ pipeline {
     withSonarQubeEnv('SonarQube') {
         sh """${scannerHome}/bin/sonar-scanner 
         -Dsonar.projectKey=Test 
-        -Dsonar.sources=. 
-        -Dsonar.host.url=http://jenkins-php-selenium-test-1-sonarqube-1:9000 
+        -Dsonar.sources=.  
         -Dsonar.login=sqp_f6e86c149a7db4794734c068e089531d110a1bb2
         """
     }
