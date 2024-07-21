@@ -15,7 +15,7 @@ pipeline {
                     agent {
                         docker {
                             image 'maven'
-                            args '--platform linux/amd64 -u root --network jenkins-php-selenium-test_jenkins-net --entrypoint=""'
+                            args '--platform linux/amd64 -u root --network jenkins-php-selenium-test-1_jenkins-net --entrypoint=""'
                         }
                     }
                     steps {
