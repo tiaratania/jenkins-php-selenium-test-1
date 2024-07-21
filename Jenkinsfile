@@ -9,7 +9,6 @@ pipeline {
             stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    dir('workspace/flask') {
                         sh '''
                         ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey= CHANGE SONARQUBE NAME HERE \
@@ -17,7 +16,7 @@ pipeline {
                         -Dsonar.host.url=http://sonarqube:9000 \
                         -Dsonar.login=${SONARQUBE_TOKEN}
                         '''
-                    }
+                    
                 }
             }
         }
