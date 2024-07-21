@@ -6,8 +6,10 @@ pipeline {
                 stage('Deploy') {
                     agent any
                     steps {
-
-                         // Ensure scripts are executable
+                        
+                        // Convert line endings and ensure scripts are executable
+                        sh 'dos2unix ./jenkins/scripts/deploy.sh'
+                        sh 'dos2unix ./jenkins/scripts/kill.sh'
                         sh 'chmod +x ./jenkins/scripts/deploy.sh'
                         sh 'chmod +x ./jenkins/scripts/kill.sh'
                         
