@@ -41,7 +41,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
+                //withSonarQubeEnv('SonarQube') {
                         sh '''
                         ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
                             -Dsonar.projectKey=Test \
@@ -50,7 +50,7 @@ pipeline {
                             -Dsonar.login=sqp_f6e86c149a7db4794734c068e089531d110a1bb2
                         '''
                     
-                }
+                //}
             }
         
         }
