@@ -9,3 +9,4 @@ set +x
 echo 'Now...'
 echo 'Visit http://localhost to see your PHP application in action.'
 
+#test
