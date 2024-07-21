@@ -10,7 +10,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                         sh '''
-                        sonar-scanner \
+                        ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
                             -Dsonar.projectKey=Test \
                             -Dsonar.sources=. \
                             -Dsonar.host.url=http://localhost:9000 \
