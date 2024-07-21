@@ -5,7 +5,8 @@ pipeline {
         SONARQUBE_TOKEN = 'sqp_f6e86c149a7db4794734c068e089531d110a1bb2'
 
     }
-    stage('SonarQube Analysis') {
+    stages {
+            stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     dir('workspace/flask') {
@@ -20,7 +21,6 @@ pipeline {
                 }
             }
         }
-    stages {
         stage('Integration UI Test') {
             parallel {
                 stage('Deploy') {
