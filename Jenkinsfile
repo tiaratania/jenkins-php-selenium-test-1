@@ -1,5 +1,25 @@
 pipeline {
     agent none
+    environment {
+        SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
+        SONARQUBE_TOKEN = 'sqp_f6e86c149a7db4794734c068e089531d110a1bb2'
+
+    }
+    stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    dir('workspace/flask') {
+                        sh '''
+                        ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
+                        -Dsonar.projectKey= CHANGE SONARQUBE NAME HERE \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://sonarqube:9000 \
+                        -Dsonar.login=${SONARQUBE_TOKEN}
+                        '''
+                    }
+                }
+            }
+        }
     stages {
         stage('Integration UI Test') {
             parallel {
