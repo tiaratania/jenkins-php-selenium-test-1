@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     environment {
         SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
         SONARQUBE_TOKEN = 'sqp_f6e86c149a7db4794734c068e089531d110a1bb2'
@@ -40,8 +40,9 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
+            agent any
             steps {
-                //withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarQube') {
                         sh '''
                         ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
                             -Dsonar.projectKey=Test \
@@ -50,7 +51,7 @@ pipeline {
                             -Dsonar.login=sqp_f6e86c149a7db4794734c068e089531d110a1bb2
                         '''
                     
-                //}
+                }
             }
         
         }
