@@ -1,10 +1,10 @@
 pipeline {
     agent none
-    // environment {
-    //     SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
-    //     SONARQUBE_TOKEN = 'sqp_f6e86c149a7db4794734c068e089531d110a1bb2'
+    environment {
+        SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
+        SONARQUBE_TOKEN = 'sqp_f6e86c149a7db4794734c068e089531d110a1bb2'
 
-    // }
+    }
     stages {
             
         stage('Integration UI Test') {
@@ -42,28 +42,29 @@ pipeline {
         stage('SonarQube Analysis') {
             agent any
             steps {
-                script {
-    def scannerHome = tool 'SonarQube Scanner';
-    withSonarQubeEnv('SonarQube') {
-        sh """${scannerHome}/bin/sonar-scanner 
-        -Dsonar.projectKey=Test 
-        -Dsonar.sources=.  
-        -Dsonar.login=sqp_f6e86c149a7db4794734c068e089531d110a1bb2
-        """
-    }
-}
-
-                // withSonarQubeEnv('SonarQube') {
-                //         sh '''
-                //         ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
-                //             -Dsonar.projectKey=Test \
-                //             -Dsonar.sources=. \
-                //             -Dsonar.host.url=http://jenkins-php-selenium-test-1-sonarqube-1:9000 \
-                //             -Dsonar.login=sqp_f6e86c149a7db4794734c068e089531d110a1bb2
-                //         '''
+                withSonarQubeEnv('SonarQube') {
+                        sh '''
+                        ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
+                            -Dsonar.projectKey=Test \
+                            -Dsonar.sources=. \
+                            -Dsonar.host.url=http://jenkins-php-selenium-test-1-sonarqube-1:9000 \
+                            -Dsonar.login=sqp_f6e86c149a7db4794734c068e089531d110a1bb2
+                        '''
                     
-                //}
+                }
             }
+
+            //                 script {
+//     def scannerHome = tool 'SonarQube Scanner';
+//     withSonarQubeEnv('SonarQube') {
+//         sh """${scannerHome}/bin/sonar-scanner 
+//         -Dsonar.projectKey=Test 
+//         -Dsonar.sources=.  
+//         -Dsonar.login=sqp_f6e86c149a7db4794734c068e089531d110a1bb2
+//         -X
+//         """
+//     }
+// }
         
         }
     }
