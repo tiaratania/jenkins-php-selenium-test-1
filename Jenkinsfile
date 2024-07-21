@@ -22,8 +22,7 @@ pipeline {
                 stage('Headless Browser Test') {
                     agent {
                         docker {
-                            //image 'maven'
-                            image 'selenium/standalone-chrome'
+                            image 'maven'
                             args '--platform linux/amd64 -u root --network jenkins-php-selenium-test-1_jenkins-net --entrypoint=""'
                         }
                     }
