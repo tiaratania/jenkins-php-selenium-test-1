@@ -43,7 +43,7 @@ pipeline {
             agent any
             steps {
                 script {
-    def scannerHome = tool 'SonarQube';
+    def scannerHome = tool 'SonarQube Scanner';
     withSonarQubeEnv('SonarQube') {
         sh """${scannerHome}/bin/sonar-scanner 
         -Dsonar.projectKey=Test 
