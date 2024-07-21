@@ -6,7 +6,7 @@ pipeline {
                 stage('Deploy') {
                     agent any
                     steps {
-                        scripts{
+                        script{
 
                             //ensure proper cleanup of existing containers
                             sh 'docker rm -f my-apache-php-app || true'
