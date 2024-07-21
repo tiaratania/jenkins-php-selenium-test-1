@@ -65,10 +65,10 @@ pipeline {
 //         """
 //     }
 // }
-        stage('SonarQube Analysis') {
+stage('SonarQube Analysis') {
             agent any
             steps {
-                node {
+                script {
                     def scannerHome = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withSonarQubeEnv('SonarQube') {
                         sh """
@@ -78,8 +78,7 @@ pipeline {
                             -Dsonar.host.url=http://jenkins-php-selenium-test-1-sonarqube-1:9000 \
                             -Dsonar.login=${SONARQUBE_TOKEN}
                         """
-
-                    }
+                   }
                 }
             }
         }
