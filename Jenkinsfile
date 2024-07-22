@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-            stages {
+            
                 stage('OWASP Dependency-Check Vulnerabilities') {
                     agent any
                             environment {
@@ -18,7 +18,7 @@ pipeline {
                     }
                 }
 
-        }
+        
         agent none
         stage('Integration UI Test') {
             parallel {
