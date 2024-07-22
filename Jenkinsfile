@@ -47,7 +47,7 @@ pipeline {
                     ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
                     -Dsonar.projectKey=OWASP \
                     -Dsonar.sources=./src \
-                    -Dsonar.host.url=http://sonarqube:9000 \
+                    -Dsonar.host.url=http://localhost:9000 \
                     -Dsonar.login=${SONARQUBE_TOKEN}
                     '''
                 }
