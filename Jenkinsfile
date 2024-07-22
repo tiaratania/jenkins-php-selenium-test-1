@@ -15,7 +15,24 @@ pipeline {
                 --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
-        }        
+        }
+        stage('Unit Testing') {
+            agent any
+            steps {
+                sh '''
+                ./vendor/bin/phpunit \
+                --log-junit logs/unitreport.xml \
+                -c src/test/phpunit.xml \
+                src/test/
+                '''
+            }
+            post {
+                always {
+                    junit 'logs/unitreport.xml'
+                }
+            }
+        }
+     
         stage('Integration UI Test') {
             parallel {
                 stage('Deploy') {
