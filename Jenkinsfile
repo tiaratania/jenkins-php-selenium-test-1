@@ -40,7 +40,7 @@ pipeline {
                 // script {
                 //     // SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                 // }
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarQube Scanner') {
                     sh '''
                     SonarQube Scanner/bin/sonar-scanner \
                     -Dsonar.projectKey=OWASP \
