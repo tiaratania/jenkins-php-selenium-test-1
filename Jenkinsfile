@@ -11,7 +11,7 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
-        agent none
+        //agent none
         stage('Integration UI Test') {
             parallel {
                 stage('Deploy') {
