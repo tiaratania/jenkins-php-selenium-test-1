@@ -1,25 +1,21 @@
 pipeline {
     agent any
     stages {
-            
-                stage('OWASP Dependency-Check Vulnerabilities') {
-                    agent any
-                            environment {
-        NVD_API_KEY = credentials('NVD_API_KEY')
+        stage('OWASP Dependency-Check Vulnerabilities') {
+            agent any
+            environment {
+                NVD_API_KEY = credentials('NVD_API_KEY')
             }
-                    steps {
-                        dependencyCheck additionalArguments: ''' 
-                                    -o './'
-                                    -s './'
-                                    -f 'ALL'
-                                    --nvdApiKey $NVD_API_KEY
-                                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-                                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-                    }
-                }
-
-        
-        
+            steps {
+            dependencyCheck additionalArguments: ''' 
+                -o './'
+                -s './'
+                -f 'ALL'
+                --nvdApiKey $NVD_API_KEY
+                --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }        
         stage('Integration UI Test') {
             parallel {
                 stage('Deploy') {
@@ -54,7 +50,6 @@ pipeline {
             environment {
                 SONARQUBE_TOKEN = 'sqp_621aaa94319a27fdefe5be5dc73f9e7be5e03af1'
                 SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
-
             }
             steps {
                 withSonarQubeEnv('SonarQube') {

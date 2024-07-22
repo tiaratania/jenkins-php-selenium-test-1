@@ -30,8 +30,14 @@ services:
       POSTGRES_PASSWORD: sonarqube # Set the PostgreSQL password
       POSTGRES_DB: sonarqube # Set the name of the database
 
-  nginx:
-    image: nginx:latest
+  # nginx config
+  nginxwebsvr:
+    image: nginx:alpine
+    container_name: nginxwebsvr
+    ports:
+      - "8081:80"
+    networks:
+      - jenkins-net
 
 volumes:
   jenkins_home:
