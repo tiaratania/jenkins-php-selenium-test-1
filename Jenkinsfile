@@ -16,11 +16,7 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
-        stage('Prepare') {
-            steps {
-                sh 'composer install'
-            }
-        }
+        
         stage('Unit Testing') {
             agent any
             steps {
