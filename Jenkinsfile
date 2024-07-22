@@ -37,12 +37,12 @@ pipeline {
         SONARQUBE_TOKEN = 'sqp_621aaa94319a27fdefe5be5dc73f9e7be5e03af1'
     }
             steps {
-                script {
-                    SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                }
+                // script {
+                //     // SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                // }
                 withSonarQubeEnv('SonarQube') {
                     sh '''
-                    ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
+                    SonarQube Scanner/bin/sonar-scanner \
                     -Dsonar.projectKey=OWASP \
                     -Dsonar.sources=./src \
                     -Dsonar.host.url=http://sonarqube:9000 \
