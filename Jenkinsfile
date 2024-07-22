@@ -16,16 +16,19 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
+        stage('Prepare') {
+            steps {
+                sh 'composer install'
+            }
+        }
         stage('Unit Testing') {
             agent any
             steps {
                 sh '''
-                ./vendor/bin/phpunit \
-                --log-junit logs/unitreport.xml \
-                -c src/test/phpunit.xml \
-                src/test/
+                cd /var/jenkins_home/workspace/jenkins-php-selenium-test-1@2
+                ./vendor/bin/phpunit --log-junit logs/unitreport.xml -c src/test/phpunit.xml src/test/
                 '''
-            }
+            }   
             post {
                 always {
                     junit 'logs/unitreport.xml'
@@ -78,6 +81,12 @@ pipeline {
                     -Dsonar.login=${SONARQUBE_TOKEN}
                     '''
                 }
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                sh 'rm -rf vendor'  // Remove installed dependencies
+                sh 'composer clear-cache'  // Clear Composer's cache
             }
         }
     }  
