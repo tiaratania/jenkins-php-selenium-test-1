@@ -1,18 +1,24 @@
 pipeline {
     agent any
     stages {
-        stage('OWASP Dependency-Check Vulnerabilities') {
-            steps {
-                dependencyCheck additionalArguments: ''' 
-                    -o './'
-                    -s './'
-                    -f 'ALL' 
-                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-                    --nvdApiKey 'c3ef5845-3ddc-4c39-8982-73ab19d11bd1' ''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+        environment {
+        NVD_API_KEY = credentials('NVD_API_KEY')
             }
+            stages {
+                stage('OWASP Dependency-Check Vulnerabilities') {
+                    agent any
+                    steps {
+                        dependencyCheck additionalArguments: ''' 
+                                    -o './'
+                                    -s './'
+                                    -f 'ALL'
+                                    --nvdApiKey $NVD_API_KEY
+                                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+                                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                    }
+
         }
-        //agent none
+        agent none
         stage('Integration UI Test') {
             parallel {
                 stage('Deploy') {
