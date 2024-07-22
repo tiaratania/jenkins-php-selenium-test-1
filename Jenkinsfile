@@ -16,6 +16,7 @@ pipeline {
                                     --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
                                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
                     }
+                }
 
         }
         agent none
