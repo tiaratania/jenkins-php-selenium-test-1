@@ -1,9 +1,6 @@
 pipeline {
     agent none
-    environment {
-        SONARQUBE_SCANNER_HOME = ''
-        SONARQUBE_TOKEN = 'sqp_621aaa94319a27fdefe5be5dc73f9e7be5e03af1'
-    }
+
     stages {
         stage('Integration UI Test') {
             parallel {
@@ -36,6 +33,9 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             agent any
+                environment {
+        SONARQUBE_TOKEN = 'sqp_621aaa94319a27fdefe5be5dc73f9e7be5e03af1'
+    }
             steps {
                 script {
                     SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
