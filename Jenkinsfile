@@ -2,7 +2,7 @@ pipeline {
     agent none
     environment {
         SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
-        SONARQUBE_TOKEN = 'sqp_f6e86c149a7db4794734c068e089531d110a1bb2'
+        SONARQUBE_TOKEN = 'sqp_621aaa94319a27fdefe5be5dc73f9e7be5e03af1'
 
     }
     stages {
@@ -60,7 +60,7 @@ pipeline {
                 withSonarQubeEnv('SonarQube') {
                     sh '''
                     ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
-                    -Dsonar.projectKey=Test \
+                    -Dsonar.projectKey=OWASP \
                     -Dsonar.sources=./src \
                     -Dsonar.host.url=http://jenkins-php-selenium-test-1-sonarqube-1:9000 \
                     -Dsonar.login=${SONARQUBE_TOKEN}
