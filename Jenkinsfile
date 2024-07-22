@@ -16,21 +16,26 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
-        
-        stage('Unit Testing') {
-            agent any
-            steps {
-                sh '''
-                cd /var/jenkins_home/workspace/jenkins-php-selenium-test-1@2
-                ./vendor/bin/phpunit --log-junit logs/unitreport.xml -c src/test/phpunit.xml src/test/
-                '''
-            }   
-            post {
-                always {
-                    junit 'logs/unitreport.xml'
-                }
-            }
+    stage('Prepare Environment') {
+    steps {
+        sh 'composer install'
+    }
+}
+    
+stage('Unit Testing') {
+    steps {
+        sh '''
+        cd /var/jenkins_home/workspace/jenkins-php-selenium-test-1@2
+        ./vendor/bin/phpunit --log-junit logs/unitreport.xml -c src/test/phpunit.xml src/test/
+        '''
+    }
+    post {
+        always {
+            junit 'logs/unitreport.xml'
         }
+    }
+}
+
      
         stage('Integration UI Test') {
             parallel {
