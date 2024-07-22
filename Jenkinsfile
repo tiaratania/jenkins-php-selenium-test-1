@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-        SONARQUBE_SCANNER_HOME = tool 'SonarQube Scanner'
+        SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
         SONARQUBE_TOKEN = 'sqp_621aaa94319a27fdefe5be5dc73f9e7be5e03af1'
     }
     stages {
