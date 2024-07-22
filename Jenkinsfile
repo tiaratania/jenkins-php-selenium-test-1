@@ -1,7 +1,16 @@
 pipeline {
     agent none
-
     stages {
+        stage('OWASP Dependency-Check Vulnerabilities') {
+            steps {
+                dependencyCheck additionalArguments: ''' 
+                    -o './'
+                    -s './'
+                    -f 'ALL' 
+                    --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }
         stage('Integration UI Test') {
             parallel {
                 stage('Deploy') {
@@ -33,15 +42,12 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             agent any
-                environment {
-        SONARQUBE_TOKEN = 'sqp_621aaa94319a27fdefe5be5dc73f9e7be5e03af1'
-        SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
+            environment {
+                SONARQUBE_TOKEN = 'sqp_621aaa94319a27fdefe5be5dc73f9e7be5e03af1'
+                SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
 
-    }
+            }
             steps {
-                // script {
-                //     // SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                // }
                 withSonarQubeEnv('SonarQube') {
                     sh '''
                     ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
@@ -53,5 +59,5 @@ pipeline {
                 }
             }
         }
-    }
+    }  
 }
