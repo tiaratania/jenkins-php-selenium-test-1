@@ -35,12 +35,28 @@ services:
     image: nginx:alpine
     container_name: nginxwebsvr
     ports:
-      - "80:80"
+      - "8082:80"
+    volumes:
+      - ./nginx_conf:/etc/nginx/conf.d
+    networks:
+      - jenkins-net
+
+  mysqldb:
+    image: mysql/mysql-server:8.0
+    restart: always
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
     networks:
       - jenkins-net
 
 volumes:
   jenkins_home:
+  mysql:
+  nginx:
 
 
 networks:
