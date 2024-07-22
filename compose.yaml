@@ -35,7 +35,7 @@ services:
     image: nginx:alpine
     container_name: nginxwebsvr
     ports:
-      - "8082:80"
+      - "82:80"
     volumes:
       - ./nginx_conf:/etc/nginx/conf.d
     networks:
