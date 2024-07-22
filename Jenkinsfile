@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     stages {
         stage('OWASP Dependency-Check Vulnerabilities') {
             steps {
@@ -11,6 +11,7 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
+        agent none
         stage('Integration UI Test') {
             parallel {
                 stage('Deploy') {
