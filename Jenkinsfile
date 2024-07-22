@@ -21,7 +21,6 @@ pipeline {
         
         
         stage('Integration UI Test') {
-            agent none
             parallel {
                 stage('Deploy') {
                     agent any
