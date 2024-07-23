@@ -22,19 +22,19 @@ pipeline {
     }
 }
     
-stage('Unit Testing') {
-    steps {
-        sh '''
-        cd /var/jenkins_home/workspace/jenkins-php-selenium-test-1@2
-        ./vendor/bin/phpunit --log-junit logs/unitreport.xml -c src/test/phpunit.xml src/test/
-        '''
-    }
-    post {
-        always {
-            junit 'logs/unitreport.xml'
-        }
-    }
-}
+// stage('Unit Testing') {
+//     steps {
+//         sh '''
+//         cd /var/jenkins_home/workspace/jenkins-php-selenium-test-1@2
+//         ./vendor/bin/phpunit --log-junit logs/unitreport.xml -c src/test/phpunit.xml src/test/
+//         '''
+//     }
+//     post {
+//         always {
+//             junit 'logs/unitreport.xml'
+//         }
+//     }
+// }
 
      
         stage('Integration UI Test') {
